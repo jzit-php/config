@@ -28,19 +28,29 @@ class Config implements ConfigInterface
     /**
      * @var string
      */
+    protected $srcDir;
+
+    /**
+     * @var string
+     */
     protected $environment;
 
     /**
+     * Config constructor.
+     *
      * @param string $appDir
+     * @param string $srcDir
      * @param string $environment
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function __construct(
         string $appDir,
+        string $srcDir,
         string $environment
     ) {
         $this->appDir = $appDir;
+        $this->srcDir = $srcDir;
         $this->environment = $environment;
 
         $this->initialize();
@@ -98,6 +108,10 @@ class Config implements ConfigInterface
     protected function initialize(): void
     {
         $config = new ArrayObject();
+
+        $config->offsetSet('app_dir', $this->appDir);
+        $config->offsetSet('src_dir', $this->srcDir);
+        $config->offsetSet('environment', $this->environment);
 
         $this->buildConfig($config);
         $this->buildConfig($config, $this->environment);

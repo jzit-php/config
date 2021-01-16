@@ -34,8 +34,9 @@ class ConfigServiceProvider extends AbstractServiceProvider
     protected function createConfig(Container $container): ConfigInterface
     {
         $appDir = $container->get('app_dir');
+        $srcDir = $container->get('src_dir');
         $environment = $container->get('environment');
 
-        return new Config($appDir, $environment);
+        return new Config($appDir, $srcDir, $environment);
     }
 }
